@@ -16,21 +16,24 @@
 <link rel="stylesheet" href="font-awesome-4.3.0/css/font-awesome.min.css">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>-->
 <script type="text/javascript" src="js/main.js"></script>
 
 </head>
 
-<body ng-app="myApp">
+<body ng-app="App">
 
-	<div class="body-container">
+	<div class="body-container" ng-controller="SearchController as search">
 		<div class="gradient">
 			<h1 class="title">Restaurant Picker</h1>
-			<h2 class="subtext">Picks a random restaurant based on your preferences. To find a restaurant, answer the prompts in the search box.</h2>
+			<h2 class="subtext">Can't decide on a place to eat? This website uses your restaurant preferences to make the decision for you! Answer the question in the search box to begin.</h2>
 			<div class="box">
 				<div class="container">
-		    		<input type="search" id="search" placeholder="Search..." />
-		    		<button class="icon">NEXT</i></button>
+				<form name="inputForm" ng-submit="search.updateQuestion()">
+		    		<input type="search" id="search" ng-model="searchBox" placeholder="{{ search.title }}" required/>
+		    		<input type="submit" class="icon" value="{{ search.button }}"/>
+		    	</form>
 		    	</div>
 			</div>
 		</div>

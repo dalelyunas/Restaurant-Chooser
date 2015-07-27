@@ -1,4 +1,4 @@
-@import 'reset';
+@import "reset";
 
 html {
 	font-size: 62.5%;
@@ -10,7 +10,7 @@ body {
 }
 
 .title {
-	font-family: 'Wire One', sans-serif;
+	font-family: "Wire One", sans-serif;
 	font-size: 14rem;
 	text-align: left;
 	letter-spacing: 1.6rem;
@@ -22,14 +22,14 @@ body {
 }
 
 .subtext {
-	font-family: 'Lora', serif;
+	font-family: "Lora", serif;
 	color: white;
 	text-align: left;
 	font-size: 1.8rem;
 	padding-top: 3rem;
 	width: 48rem;
 	margin: 0 auto;
-	line-height: 2.5rem;
+	line-height: 2.6rem;
 }
 
 input:focus {
@@ -68,7 +68,7 @@ input:focus {
 	white-space: nowrap;
 }
 
-.container input#search {
+#search {
 	width: 30rem;
 	height: 5rem;
 	background: white;
@@ -80,23 +80,23 @@ input:focus {
 
 $button-color: #CFCFCF;
 
-.container input#search::-webkit-input-placeholder {
+#search::-webkit-input-placeholder {
    	color: $button-color;
 }
  
-.container input#search:-moz-placeholder { /* Firefox 18- */
+#search:-moz-placeholder { /* Firefox 18- */
    	color: $button-color;  
 }
  
-.container input#search::-moz-placeholder {  /* Firefox 19+ */
+#search::-moz-placeholder {  /* Firefox 19+ */
    	color: $button-color;  
 }
  
-.container input#search:-ms-input-placeholder {  
+#search:-ms-input-placeholder {  
    	color: $button-color;  
 }
  
-.container:hover button.icon:hover{
+.container:hover input.icon:hover{
    	background: white;
 }
 
@@ -151,3 +151,10 @@ $button-color: #CFCFCF;
 	margin: 0 auto;
 	
 }
+
+input[type=text]::-ms-clear {  display: none; width : 0; height: 0; }
+input[type=text]::-ms-reveal {  display: none; width : 0; height: 0; }
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration { display: none; }
