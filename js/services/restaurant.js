@@ -35,26 +35,31 @@
  
 });*/
 
-app.factory('Restaurant', function($q, $timeout) {
+app.factory('Restaurant', function($q, $timeout, $window) {
 
-  var getRestaurant = function() {
+  var getRestaurant = function(requestArray) {
     var deferred = $q.defer();
+   	var service = new google.maps.places.PlacesService($("#mapPlaceholder").get(0));
 
-	var lat = 0;
-    var lon = 0;
-    if (navigator.geolocation) {
-    	navigator.geolocation.getCurrentPosition(function(position) {
-    		alert("sup");
-    		lat = position.coords.latitude;
-    		lon = position.coords.longitude;
-    	});
-    }
-    console.log(lat);
-    console.log(lon);
+    $window.navigator.geolocation.getCurrentPosition(function(position) {
+    	var request = {
+    		location: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+    		radius: requestArray[1] * 1609.34,
+    		query: requestArray[0],
+    		types: ["restaurant"],
+    		maxPriceLevel: requestArray[2] / 10
+    	};
+		service.textSearch(request, function(results, status) {
+			if (status == google.maps.places.PlacesServiceStatus.OK) {
+				deferred.resolve(selectRestaurant(results));
+			}
+		});
 
-    $timeout(function() {
-      deferred.resolve("asd");
-    }, 2000);
+    }, function(error) {
+    	if (error.code === 1) {
+    		alert("Please enable location so nearby restaurants can be found");
+    	}
+    }); 
 
     return deferred.promise;
   };
@@ -64,3 +69,8 @@ app.factory('Restaurant', function($q, $timeout) {
   };
 
 });
+
+function selectRestaurant(results) {
+	console.log(results[0]);
+	return 0;
+}

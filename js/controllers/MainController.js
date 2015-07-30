@@ -1,5 +1,5 @@
 app.controller("MainController", function($scope, Restaurant) {
-	$scope.questions = ["What type of food do you want?", "How far in minutes are you willing to travel?", "How many dollars do you want to spend?", "What Yelp rating should the restuarant have?"];
+	$scope.questions = ["What type of food do you want?", "How many miles are you willing to travel?", "How many dollars do you want to spend?", "What Yelp rating should the restuarant have?"];
 	$scope.curQuestion = 0;
 
 	var answers = [];
@@ -22,8 +22,9 @@ app.controller("MainController", function($scope, Restaurant) {
 			$scope.curQuestion++;
 		}
 		else {
-			Restaurant.getRestaurant().then(function(data) {
-				$scope.button = data;
+			Restaurant.getRestaurant(answers).then(function(data) {
+
+				console.log(data);
 			});
 			/*restaurant.getRestaurant(answers).then(function(restaurants) {
 				alert(restaurants[0]);
