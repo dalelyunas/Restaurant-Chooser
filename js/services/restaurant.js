@@ -1,40 +1,3 @@
-/*app.factory("restaurant", function($q) {
-
-  var getRestaurants = function(requestArray) {
-  	alert("tried");
-  	var deferred = q.defer();
-
-
-    var lat = 0;
-    var lon = 0;
-
-    if (navigator.geolocation) {
-    	navigator.geolocation.getCurrentPosition(function(position) {
-    		lat = position.coords.latitude;
-    		lon = position.coords.longitude;
-    	});
-    }
-    var request = {
-    	location: new google.maps.LatLng(lat, lon);
-    	radius: 10000;
-    	types: ['restaurant'];
-    	query: requestArray[0];
-    	maxPriceLevel: requestArray[2] / 10;
-    }
-
-    var service = new google.maps.places.PlacesService();
-	service.textSearch(request, deferred.resolve());
-
-	return deferred.promise;
-  };
-
-  return {
-    getRestaurants: getRestaurants;
-  };
-  
- 
-});*/
-
 app.factory('Restaurant', function($q, $timeout, $window) {
 
   var getRestaurant = function(requestArray) {
@@ -47,11 +10,14 @@ app.factory('Restaurant', function($q, $timeout, $window) {
     		radius: requestArray[1] * 1609.34,
     		query: requestArray[0],
     		types: ["restaurant"],
-    		maxPriceLevel: requestArray[2] / 10
+    		maxPriceLevel: requestArray[2]
     	};
-		service.textSearch(request, function(results, status) {
+		service.textSearch(request, function(results, status, pagination) {
 			if (status == google.maps.places.PlacesServiceStatus.OK) {
-				deferred.resolve(selectRestaurant(results));
+				deferred.resolve(selectRestaurant(results, pagination, requestArray[3]));
+			}
+			if (status == google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
+				deferred.resolve("No results found");
 			}
 		});
 
@@ -70,7 +36,24 @@ app.factory('Restaurant', function($q, $timeout, $window) {
 
 });
 
-function selectRestaurant(results) {
-	console.log(results[0]);
-	return 0;
+function selectRestaurant(results, pagination, rating) {
+	while (results.length > 0) {
+		var index = Math.floor(Math.random() * results.length);
+		var restaurant = results[index];
+
+		if (restaurant.rating >= rating) {
+			return restaurant;
+			break;
+		}
+		else {
+			results.splice(index, 1);
+		}
+	}
+
+	if (pagination.hasNextPage) {
+		selectRestaurant(pagination.nextPage());
+	}
+	else {
+		return "No results found";
+	}
 }
