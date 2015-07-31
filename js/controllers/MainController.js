@@ -1,5 +1,5 @@
 app.controller("MainController", function($scope, Restaurant) {
-	$scope.questions = ["What type of food do you want?", "How many miles are you willing to travel?", "How much (0 - 4) do you want to spend?", "What rating (0 - 5) should the restuarant have?"];
+	$scope.questions = ["What type of food do you want?", "What radius (Miles) should the restaurant be within?", "How much (Scale from 0 - 4) do you want to spend?", "What minimum rating (0 - 5) ?"];
 	$scope.curQuestion = 0;
 
 	var answers = [];

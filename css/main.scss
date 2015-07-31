@@ -96,11 +96,11 @@ $button-color: #CFCFCF;
    	color: $button-color;  
 }
  
-.container:hover input.icon:hover{
+.container:hover input.button:hover{
    	background: white;
 }
 
-.icon{
+.button{
   	font-size: 1.2rem;
   	letter-spacing: 3px;
   	outline: none;
