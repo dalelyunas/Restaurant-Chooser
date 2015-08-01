@@ -14,19 +14,28 @@ app.factory('Restaurant', function($q, $timeout, $window, $http) {
     		rating: requestArray[3]
     	};
     	
-		return $http.get('localhost:4730/api/params?', request)
-			.success(function(data) {
-    			return data;
-			})
-			.error(function(error) {
-    			return "NO_DATA";
- 		 	});
+		$http.get('http://localhost:4730/api/params', {params:{
+			loc: position.coords.latitude + "," + position.coords.longitude,
+    		radius: requestArray[1] * 1609.34,
+    		term: requestArray[0],
+    		limit: 20,
+    		maxPrice: requestArray[2],
+    		rating: requestArray[3]
+    	}})
+		.success(function(data) {
+    		deferred.resolve(data);
+		})
+		.error(function(error) {
+    		deferred.resolve("NO_DATA");
+ 		 });
 
     }, function(error) {
     	if (error.code === 1) {
     		alert("Please enable location so nearby restaurants can be found");
     	}
     }); 
+
+    return deferred.promise;
   };
 
   return {

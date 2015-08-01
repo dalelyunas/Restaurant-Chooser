@@ -8,17 +8,41 @@ var qs = require('querystring');
 var fs = require('fs');
 
 
+// Add headers
+app.use(function (req, res, next) {
+
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+});
+
 var fs = require('fs');
 var obj = JSON.parse(fs.readFileSync('yelp_api_keys.json', 'utf8'));
 
+var price = 0;
+var rating = 0;
+
 app.get('/api/params?', function(req, res) {
 
+	console.log(req.url);
 	// Parameters for Yelp API call
 	var parameters = {
-		ll: req.param('loc'),
-		term: req.param('term'),
-		radius_filter: req.param('radius'),
-		limit: req.param('limit'),
+		ll: req.query.loc,
+		term: req.query.term,
+		radius_filter: req.query.radius,
+		limit: req.query.limit,
 		sort: '0',
 		oauth_consumer_key : obj.consumer_key,
     	oauth_token : obj.token,
@@ -28,9 +52,14 @@ app.get('/api/params?', function(req, res) {
     	oauth_version : '1.0'
 	};
 
-	var restaurant_json = request_yelp(parameters, selectRestaurant);
+	console.log(parameters.limit);
+	console.log(parameters.term);
+	rating = req.query.rating;
+	price = req.query.maxPrice;
 
-  	res.send("");
+	request_yelp(parameters, selectRestaurant, res);
+
+  	//res.send(restaurant_json);
 });
 
 
@@ -41,7 +70,7 @@ app.listen(process.env.PORT || 4730);
  * set_parameters: object with params to search
  * callback: callback(error, response, body)
  */
-var request_yelp = function(parameters, callback) {
+var request_yelp = function(parameters, callback, res) {
 
   /* The type of request */
   var httpMethod = 'GET';
@@ -68,12 +97,36 @@ var request_yelp = function(parameters, callback) {
 
   /* Then we use request to send make the API Request */
   request(apiURL, function(error, response, body){
-    return callback(error, response, body);
+    callback(error, response, body, res);
   });
 
 };
 
 // Processes recieved json data to find a single restaurant
-function selectRestaurant(error, response, body) {
-
+function selectRestaurant(error, response, body, res) {
+	var jsonobj = JSON.parse(body);
+	var businesses = jsonobj.businesses;
+	
+	while (businesses.length > 0) {
+		var index = Math.floor(Math.random() * businesses.length);
+		console.log(businesses[index].rating);
+		if (businesses[index].rating >= rating)  {
+			res.send("hi");
+			break;
+		}
+		else {
+			businesses.splice(index, 1);
+		}
+	}
+	//console.log(body);
+	
 }
+
+function scrapePrice(url) {
+	return 5;
+}
+
+function formatForSend(business) {
+	return "hi";
+}
+
