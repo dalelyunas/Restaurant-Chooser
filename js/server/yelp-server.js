@@ -6,7 +6,7 @@ var n = require('nonce')();
 var request = require('request');  
 var qs = require('querystring');  
 var fs = require('fs');
-
+var cheerio = require('cheerio');
 
 // Add headers
 app.use(function (req, res, next) {
@@ -35,8 +35,7 @@ var price = 0;
 var rating = 0;
 
 app.get('/api/params?', function(req, res) {
-
-	console.log(req.url);
+	console.log("recieved");
 	// Parameters for Yelp API call
 	var parameters = {
 		ll: req.query.loc,
@@ -44,89 +43,120 @@ app.get('/api/params?', function(req, res) {
 		radius_filter: req.query.radius,
 		limit: req.query.limit,
 		sort: '0',
+		category_filter: 'restaurants',
 		oauth_consumer_key : obj.consumer_key,
-    	oauth_token : obj.token,
-    	oauth_nonce : n(),
-    	oauth_timestamp : n().toString().substr(0,10),
-    	oauth_signature_method : 'HMAC-SHA1',
-    	oauth_version : '1.0'
+    oauth_token : obj.token,
+    oauth_nonce : n(),
+    oauth_timestamp : n().toString().substr(0,10),
+    oauth_signature_method : 'HMAC-SHA1',
+    oauth_version : '1.0'
 	};
 
-	console.log(parameters.limit);
-	console.log(parameters.term);
-	rating = req.query.rating;
-	price = req.query.maxPrice;
+	rating = parseFloat(req.query.rating);
+	price = parseInt(req.query.maxPrice);
 
-	request_yelp(parameters, selectRestaurant, res);
-
-  	//res.send(restaurant_json);
+	request_yelp(parameters, yelpDataReceived, res);
 });
 
-
-
 app.listen(process.env.PORT || 4730);
-/* Function for yelp call
- * ------------------------
- * set_parameters: object with params to search
- * callback: callback(error, response, body)
- */
+
+// Calls the Yelp API with the passed parameters and callback function
 var request_yelp = function(parameters, callback, res) {
-
-  /* The type of request */
   var httpMethod = 'GET';
-
-  /* The url we are using for the request */
   var url = 'http://api.yelp.com/v2/search';
 
-  /* We set our secrets here */
   var consumerSecret = obj.consumer_secret;
   var tokenSecret = obj.token_secret;
 
-  /* Then we call Yelp's Oauth 1.0a server, and it returns a signature */
-  /* Note: This signature is only good for 300 seconds after the oauth_timestamp */
   var signature = oauthSignature.generate(httpMethod, url, parameters, consumerSecret, tokenSecret, { encodeSignature: false});
 
-  /* We add the signature to the list of paramters */
   parameters.oauth_signature = signature;
-
-  /* Then we turn the paramters object, to a query string */
   var paramURL = qs.stringify(parameters);
-
-  /* Add the query string to the url */
   var apiURL = url+'?'+paramURL;
 
-  /* Then we use request to send make the API Request */
   request(apiURL, function(error, response, body){
     callback(error, response, body, res);
   });
-
 };
 
-// Processes recieved json data to find a single restaurant
-function selectRestaurant(error, response, body, res) {
-	var jsonobj = JSON.parse(body);
-	var businesses = jsonobj.businesses;
-	
-	while (businesses.length > 0) {
-		var index = Math.floor(Math.random() * businesses.length);
-		console.log(businesses[index].rating);
-		if (businesses[index].rating >= rating)  {
-			res.send("hi");
-			break;
-		}
-		else {
-			businesses.splice(index, 1);
-		}
+// Callback function for when the Yelp API data is recieved
+function yelpDataReceived(error, response, body, res) {
+	if (!error) {
+		var jsonobj = JSON.parse(body);
+		var businesses = jsonobj.businesses;
+
+		selectRestaurant(businesses, res);
 	}
-	//console.log(body);
-	
+	else {
+		res.send("NO_DATA");
+	}
 }
 
-function scrapePrice(url) {
-	return 5;
+// Selects a restaurant from the list and passes it to the processing functions
+function selectRestaurant(businesses, res) {
+	if (businesses.length === 0) {
+		res.send("NO_DATA");
+	}
+	else {
+		var newIndex = Math.floor(Math.random() * (businesses.length - 1));
+
+		console.log("Index: " + newIndex);
+		scrapePrice(businesses, newIndex, checkBusiness, res);
+	}
 }
 
-function formatForSend(business) {
-	return "hi";
+// Scrapes the price data from the Yelp page and then calls the callback function
+function scrapePrice(businesses, index, callback, res) {
+	var url = businesses[index].url
+	console.log("URL: " + url);
+	request(url, function(error, response, html){
+    var $ = cheerio.load(html);
+
+    $('.price-description').filter(function(){
+    		var yelpPrice = 0;
+        var data = $(this);
+        var price = data.text(); 
+        var parsePrice = price.replace(/\s+/g, '');
+        console.log(parsePrice);
+        if (parsePrice === "Under$10") {
+        	yelpPrice = 0;
+        }
+        else {
+        	yelpPrice = parseInt(parsePrice.split("-")[0].substring(1));
+        }           
+        callback(businesses, index, yelpPrice, parsePrice, res);
+    });
+	});
+}
+
+// Checks to see if the restaurant meets the request's criteria
+// If it does it sends a response, else it recurrs back to the selectRestaurant after
+// removing the current bad restaurant from the list
+function checkBusiness(businesses, index, yelpPrice, displayPrice, res) {
+	console.log("Rating: " + businesses[index].rating + " " + rating);
+	console.log("Price: " + yelpPrice + " " + price);
+
+	if (parseFloat(businesses[index].rating) >= rating && price >= yelpPrice)  {
+		res.send(formatForSend(businesses[index], displayPrice));
+	}
+	else {
+		var newBusinesses = businesses;
+		newBusinesses.splice(index, 1);
+		selectRestaurant(newBusinesses, res);
+	}
+}
+
+// Formats the business and price data to send to the client
+function formatForSend(business, businessPrice) {
+	var json = {
+		image: business.image_url,
+		name: business.name,
+		url: business.url,
+		rating: business.rating,
+		price: businessPrice,
+		address: business.location.display_address,
+
+	}
+	return json;
 }
 

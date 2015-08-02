@@ -1,5 +1,5 @@
 app.controller("MainController", function($scope, Restaurant) {
-	$scope.questions = ["What type of food do you want?", "What radius (Miles) should the restaurant be within?", "How much (Scale from 0 - 4) do you want to spend?", "What minimum rating (0 - 5) ?"];
+	$scope.questions = ["What type of food do you want?", "How far (within 20 miles) do you want to travel?", "How many dollars do you want to spend?", "What minimum rating (0 - 5) do you want?"];
 	$scope.curQuestion = 0;
 
 	var answers = [];
@@ -8,13 +8,13 @@ app.controller("MainController", function($scope, Restaurant) {
 
 	
 	$scope.$watch("curQuestion", function () {
-        if ($scope.curQuestion < $scope.questions.length - 1) {
-            $scope.button = "NEXT";
-        } 
-        else {
-            $scope.button = "GO";
-        }
-    });
+    if ($scope.curQuestion < $scope.questions.length - 1) {
+      $scope.button = "NEXT";
+    } 
+    else {
+      $scope.button = "GO";
+    }
+  });
 	
 	$scope.updateQuestion = function() {
 		if ($scope.curQuestion < $scope.questions.length - 1) {
