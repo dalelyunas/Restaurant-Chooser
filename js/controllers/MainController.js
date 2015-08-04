@@ -5,7 +5,9 @@ app.controller("MainController", function($scope, Restaurant) {
 	var answers = [];
 	
 	$scope.button = "";
-
+  $scope.submitted = false;
+  $scope.loading = false;
+  //$scope.restaurantInfo = null;
 	
 	$scope.$watch("curQuestion", function () {
     if ($scope.curQuestion < $scope.questions.length - 1) {
@@ -23,11 +25,25 @@ app.controller("MainController", function($scope, Restaurant) {
 		}
 		else {
 			answers.push($scope.searchBox);
-			Restaurant.getRestaurant(answers).then(function(data) {
+      $scope.loading = true;
+			Restaurant.getRestaurant(answers)
+      .then(function(data) {
 				console.log(data);
-			});
+        $scope.restaurantData = data;
+			})
+      .finally(function() {
+
+        $scope.submitted = true;
+        $scope.loading = false;
+      });
 		}
 		$scope.inputForm.$setPristine();
 		$scope.searchBox = "";
 	};
+
+  $scope.back = function() {
+    $scope.submitted = false;
+    $scope.curQuestion = 0;
+    answers = [];
+  };
 });

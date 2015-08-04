@@ -4,6 +4,7 @@ app.directive("restaurantInfo", function() {
     scope: {
       info: '='
     },
-    templateUrl: 'js/directives/restuarantInfo.html'
-  };
+    //templateUrl: 'js/directives/restuarantInfo.html'
+    template: '<h1>THIS IS SUPER COOL</h1>'
+  }
 });

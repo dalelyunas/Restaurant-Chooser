@@ -7,21 +7,22 @@
 	<title>Restaurant Picker</title>
 	<meta name="description" content="Restaurant Picker">
 	<meta name="David Alelyunas" content="SitePoint">
-	<meta name="viewport" content="width=device-width, initial-scale=0.8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Wire+One|Lora:400,400italic">
 
 	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" herf="css/restaurantinfo.css">
 	<link rel="stylesheet" href="font-awesome-4.3.0/css/font-awesome.min.css">
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
 	<script type="text/javascript" src="js/main.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/controllers/MainController.js"></script>
 	<script src="js/services/restaurant.js"></script>
+	<script src="js/directives/restaurantInfo.js"></script>
 </head>
 
 </head>
@@ -30,17 +31,27 @@
 
 	<div class="body-container" ng-controller="MainController">
 		<div class="gradient">
-			<h1 class="title">Restaurant Picker</h1>
-			<h2 class="subtext">Can't decide on a place to eat? This website uses your restaurant preferences to make the decision for you! Answer the question in the search box to begin.</h2>
-			<div class="box">
-				<div class="container">
-				<form name="inputForm" ng-submit="updateQuestion()">
-		    		<input type="search" id="search" ng-model="searchBox" placeholder="{{ questions[curQuestion] }}" required/>
-		    		<input type="submit" class="button" value="{{ button }}"/>
-		    	</form>
-		    	</div>
+			<div class="searchPage" ng-show="!submitted">
+				<h1 class="title">Restaurant Picker</h1>
+				<h2 class="subtext">Can't decide on a place to eat? This website uses your restaurant preferences to make the decision for you! Answer the question in the search box to begin.</h2>
+
+				<div class="box">
+					<div class="container">
+						<form name="inputForm" ng-submit="updateQuestion()">
+			    		<input type="search" id="search" ng-model="searchBox" placeholder="{{ questions[curQuestion] }}" required/>
+			    		<input type="submit" class="button" value="{{ button }}"/>
+				    </form>
+			    </div>
+				</div>
 			</div>
+
+			<restaurant-info info="restaurantData" ng-show="submitted"></restaurant-info>
+			
 		</div>
+		
+		
+		<div class="loading-bar" ng-show="loading"></div>
+
 	</div>
 
 	<footer class="contact">
@@ -58,6 +69,6 @@
 			</div>
 		</div>
 	</footer>
-	<div id="mapPlaceholder"></div>
+	
 </body>
 </html>

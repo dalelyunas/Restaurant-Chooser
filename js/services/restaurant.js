@@ -2,7 +2,6 @@ app.factory('Restaurant', function($q, $timeout, $window, $http) {
 
   var getRestaurant = function(requestArray) {
     var deferred = $q.defer();
-   	var service = new google.maps.places.PlacesService($("#mapPlaceholder").get(0));
 
     $window.navigator.geolocation.getCurrentPosition(function(position) {
     	var request = {
@@ -31,7 +30,8 @@ app.factory('Restaurant', function($q, $timeout, $window, $http) {
 
     }, function(error) {
     	if (error.code === 1) {
-    		alert("Please enable location so nearby restaurants can be found");
+    		alert("Please enable location so nearby restaurants can be found and try again");
+        deferred.resolve("NO_DATA");
     	}
     }); 
 
