@@ -1,7 +1,17 @@
-<img class="icon" ng-src="{{ info.icon }}">
-<h2 class="name">{{ info.name }}</h2>
-<button class="back">BACK</button>
-<p class="address">{{ info.vicinity }}</p>
-<a href="{{ info.url }}">Yelp Page</a>
-<p class="price">{{ info.price}}</p>
-<h3 class="rating">{{ info.rating }} / 5</h3>
+<div class="results-box">
+  <div class="results-container">
+    <div class="results-titlebar">
+      <button class="button results-back">BACK</button>
+      <h2 class="name">{{ info.name }}</h2>
+    </div>
+
+    <img class="image" ng-src="{{ info.image }}">
+    
+    <div class="info-container">
+      <a href="{{ info.url }}">Yelp Page</a>
+      <p class="price">{{ info.price}}</p>
+      <h3 class="rating">{{ info.rating }} / 5</h3>
+      <p class="address">{{ info.address[0] }}</p>
+    </div>
+  </div>
+</div>

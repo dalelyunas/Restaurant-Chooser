@@ -148,14 +148,16 @@ function checkBusiness(businesses, index, yelpPrice, displayPrice, res) {
 
 // Formats the business and price data to send to the client
 function formatForSend(business, businessPrice) {
+	var largeImage = business.image_url.substring(0, business.image_url.lastIndexOf("/")) + "/ls.jpg"; 
+
 	var json = {
-		image: business.image_url,
+		image: largeImage,
 		name: business.name,
 		url: business.url,
 		rating: business.rating,
 		price: businessPrice,
 		address: business.location.display_address,
-
+		snippet: business.snippet_text
 	}
 	return json;
 }

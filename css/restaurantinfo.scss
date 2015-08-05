@@ -1,0 +1,46 @@
+restaurant-info {
+  display: block;
+  
+}
+
+.results-box {
+  margin: 0 auto;
+  padding-top: 20rem;
+  width: 60rem;
+}
+
+.results-container {
+  width: 60rem;
+  background-color: white;
+  height: 40rem;
+}
+
+.results-titlebar {
+  border-bottom: black .1rem solid;
+  height: 7rem;
+}
+
+.name {
+    font-family: Wire One, Sans-serif;
+    font-size: 5rem;
+    padding-left: 1rem;
+    padding-top: 1rem;
+    letter-spacing: .2rem;
+}
+
+.results-back {
+  float: right;
+  margin-right: 1rem;
+  margin-top: 1rem;
+}
+
+.image {
+  padding-left: 1rem;
+  padding-top: 1rem;
+  float: left;
+}
+
+.info-container {
+  margin-left: 27rem;
+  margin-top: 1rem;
+}
