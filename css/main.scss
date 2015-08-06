@@ -2,7 +2,10 @@
 
 html {
 	font-size: 62.5%;
-	
+}
+
+a {
+  text-decoration: none;
 }
 
 .title {
@@ -92,7 +95,7 @@ $button-color: #CFCFCF;
    	color: $button-color;  
 }
  
-.container:hover input.button:hover{
+.button:hover{
    	background: white;
 }
 

@@ -7,7 +7,6 @@ app.controller("MainController", function($scope, Restaurant) {
 	$scope.button = "";
   $scope.submitted = false;
   $scope.loading = false;
-  //$scope.restaurantInfo = null;
 	
 	$scope.$watch("curQuestion", function () {
     if ($scope.curQuestion < $scope.questions.length - 1) {
@@ -42,8 +41,10 @@ app.controller("MainController", function($scope, Restaurant) {
 	};
 
   $scope.back = function() {
-    $scope.submitted = false;
-    $scope.curQuestion = 0;
-    answers = [];
+    
+      $scope.submitted = false;
+      $scope.curQuestion = 0;
+      answers = [];
+    
   };
 });

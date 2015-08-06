@@ -1,17 +1,25 @@
 <div class="results-box">
   <div class="results-container">
     <div class="results-titlebar">
-      <button class="button results-back">BACK</button>
+      <button class="button results-back" ng-click="onBack()">BACK</button>
       <h2 class="name">{{ info.name }}</h2>
     </div>
 
     <img class="image" ng-src="{{ info.image }}">
     
     <div class="info-container">
-      <a href="{{ info.url }}">Yelp Page</a>
-      <p class="price">{{ info.price}}</p>
-      <h3 class="rating">{{ info.rating }} / 5</h3>
-      <p class="address">{{ info.address[0] }}</p>
+      <h1 class="snippet-title">Review Snippet</h1>
+      <p class="snippet">{{ info.snippet }}</p>
+
+      <div class="small-info-row">
+        <p class="small-info">Rating: {{ info.rating }}/5</h3>
+        <p class="small-info">Price: {{ info.price}}</p>
+      </div>
+
+      <p class="address">{{ info.address[0] }}, {{ info.address[1] }} {{ info.address[2] }}</p>
+      <a href="{{ info.url }}" class="yelp-link"><button class="button">YELP PAGE</button></a>
+  
     </div>
+
   </div>
 </div>

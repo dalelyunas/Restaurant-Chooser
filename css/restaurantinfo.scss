@@ -12,35 +12,78 @@ restaurant-info {
 .results-container {
   width: 60rem;
   background-color: white;
-  height: 40rem;
+}
+
+.results-container:after {
+  content: " ";
+  display: block; 
+  height: 0; 
+  clear: both;
 }
 
 .results-titlebar {
   border-bottom: black .1rem solid;
-  height: 7rem;
 }
 
 .name {
-    font-family: Wire One, Sans-serif;
+    font-family: "Wire One", sans-serif;
     font-size: 5rem;
-    padding-left: 1rem;
-    padding-top: 1rem;
+    padding: 1rem;
     letter-spacing: .2rem;
 }
 
 .results-back {
   float: right;
-  margin-right: 1rem;
-  margin-top: 1rem;
+  margin: 1rem;
 }
 
 .image {
-  padding-left: 1rem;
-  padding-top: 1rem;
+  margin: 1rem;
   float: left;
 }
 
+.snippet-title {
+  font-family: "Wire One", sans-serif;
+  font-size: 3.5rem;
+}
+
+.snippet {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  font-family: "Lora", serif;
+}
+
 .info-container {
-  margin-left: 27rem;
   margin-top: 1rem;
+  max-width: 32rem;
+  float: left;
+  font-family: "Lora", serif;
+}
+
+.small-info-row {
+  font-family: "Wire One", sans-serif;
+  text-align: center;
+}
+
+.small-info {
+  font-size: 2.5rem;
+  padding: 1rem;
+  border: black .1rem solid;
+  margin: .5rem;
+  letter-spacing: .15rem;
+  display: inline-block
+}
+
+.address {
+  font-size: 1.3rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.yelp-link {
+  display: block;
+  margin: 0 auto;
+  margin-top: 1rem;
+  width: 10rem;
 }
