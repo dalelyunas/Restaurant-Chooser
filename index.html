@@ -23,6 +23,7 @@
 	<script src="js/controllers/MainController.js"></script>
 	<script src="js/services/restaurant.js"></script>
 	<script src="js/directives/restaurantInfo.js"></script>
+	<script src="js/directives/noInfo.js"></script>
 </head>
 
 </head>
@@ -31,22 +32,20 @@
 
 	<div class="body-container" ng-controller="MainController">
 		<div class="gradient">
+
 			<div class="searchPage" ng-show="!submitted">
 				<h1 class="title">Restaurant Picker</h1>
 				<h2 class="subtext">Can't decide on a place to eat? This website uses your restaurant preferences to make the decision for you! Answer the question in the search box to begin.</h2>
-
-				
 				<div class="container">
 					<form name="inputForm" ng-submit="updateQuestion()">
 		    		<input type="search" id="search" ng-model="searchBox" placeholder="{{ questions[curQuestion] }}" required/>
 		    		<input type="submit" class="button" value="{{ button }}"/>
 			    </form>
 		    </div>
-				
 			</div>
 
-			<restaurant-info info="restaurantData" on-back="back()" ng-show="submitted"></restaurant-info>
-			
+			<restaurant-info info="restaurantData" on-back="back()" ng-show="submitted && dataRecieved"></restaurant-info>	
+			<no-info on-back="back()" ng-show="submitted && noDataRecieved"></no-info>
 		</div>
 		
 		
@@ -69,6 +68,6 @@
 			</div>
 		</div>
 	</footer>
-	
+
 </body>
 </html>

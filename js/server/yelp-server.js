@@ -35,7 +35,7 @@ var price = 0;
 var rating = 0;
 
 app.get('/api/params?', function(req, res) {
-	console.log("recieved");
+	console.log('recieved');
 	// Parameters for Yelp API call
 	var parameters = {
 		ll: req.query.loc,

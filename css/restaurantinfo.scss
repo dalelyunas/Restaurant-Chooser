@@ -1,11 +1,11 @@
-restaurant-info {
-  display: block;
+restaurant-info, no-info {
+  display: table-cell;
+  vertical-align: middle;
   
 }
 
 .results-box {
   margin: 0 auto;
-  padding-top: 20rem;
   width: 60rem;
 }
 
@@ -45,11 +45,13 @@ restaurant-info {
 .snippet-title {
   font-family: "Wire One", sans-serif;
   font-size: 3.5rem;
+  margin-left: 1rem;
 }
 
 .snippet {
   font-size: 1.2rem;
   line-height: 1.5;
+  margin: 0 1rem;
   margin-bottom: 1rem;
   font-family: "Lora", serif;
 }
@@ -77,13 +79,36 @@ restaurant-info {
 
 .address {
   font-size: 1.3rem;
+  margin: 0 1rem;
   margin-top: 1rem;
   text-align: center;
 }
 
 .yelp-link {
   display: block;
-  margin: 0 auto;
-  margin-top: 1rem;
+  margin: 1rem auto;
   width: 10rem;
+}
+
+@media screen and (max-width: 600px) {
+  .results-box {
+    width: 30rem;
+  }
+
+  .results-container {
+    width: 30rem;
+  }
+  
+  .image {
+    display: block;
+    margin: 0 auto;
+    margin-top: 1rem;
+    float: none;
+  }
+
+  .yelp-link {
+    width: 8rem;
+
+  }
+
 }

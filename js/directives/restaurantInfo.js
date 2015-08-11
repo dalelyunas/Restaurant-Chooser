@@ -1,4 +1,4 @@
-app.directive("restaurantInfo", function() {
+app.directive('restaurantInfo', function() {
   return {
     restrict: 'E',
     scope: {

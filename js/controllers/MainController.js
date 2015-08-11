@@ -1,5 +1,5 @@
 app.controller("MainController", function($scope, Restaurant) {
-	$scope.questions = ["What type of food do you want?", "How far (within 20 miles) do you want to travel?", "How many dollars do you want to spend?", "What minimum rating (0 - 5) do you want?"];
+	$scope.questions = ["What type of food do you want?", "How far (< 20 mi) do you want to travel?", "How much ($) do you want to spend?", "What minimum rating (0 - 5) do you want?"];
 	$scope.curQuestion = 0;
 
 	var answers = [];
@@ -28,7 +28,14 @@ app.controller("MainController", function($scope, Restaurant) {
 			Restaurant.getRestaurant(answers)
       .then(function(data) {
 				console.log(data);
-        $scope.restaurantData = data;
+        if (data === "NO_DATA") {
+          $scope.noDataRecieved = true;
+        }
+        else {
+          $scope.restaurantData = data;
+          $scope.dataRecieved = true;
+        }
+        
 			})
       .finally(function() {
 
@@ -41,7 +48,8 @@ app.controller("MainController", function($scope, Restaurant) {
 	};
 
   $scope.back = function() {
-    
+      $scope.dataRecieved = false;
+      $scope.noDataRecieved = false;
       $scope.submitted = false;
       $scope.curQuestion = 0;
       answers = [];
