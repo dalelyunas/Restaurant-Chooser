@@ -9,17 +9,21 @@
     
     <div class="info-container">
       <h1 class="snippet-title">Review Snippet</h1>
-      <p class="snippet">{{ info.snippet }}</p>
+      <p class="snippet">{{ info.snippet }} <a href="{{ info.url}}" class="snippet-link">read more</a></p>
 
       <div class="small-info-row">
-        <p class="small-info">Rating: {{ info.rating }}/5</h3>
+        <div class="small-info rating">
+          <img src="{{ info.rating_image }}">  
+          <p class="review-count">based on {{ info.reviews }} reviews</p>
+        </div>
         <p class="small-info">Price: {{ info.price}}</p>
       </div>
-
+      
       <p class="address">{{ info.address[0] }}, {{ info.address[1] }} {{ info.address[2] }}</p>
       <a href="{{ info.url }}" class="yelp-link"><button class="button">YELP PAGE</button></a>
+
   
     </div>
-
+    <img class="yelp-logo" src="../../img/Powered_By_Yelp_White.png">
   </div>
 </div>

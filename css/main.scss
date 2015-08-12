@@ -8,6 +8,10 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+    color: #2478FA;
+}
+
 .searchPage {
   display: table-cell;
   vertical-align: middle;
@@ -146,7 +150,7 @@ $button-color: #CFCFCF;
 	}
 
 	a:hover {
-		color: red;
+		color: #2478FA;
 	}
 
 }

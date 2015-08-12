@@ -81,13 +81,14 @@ var request_yelp = function(parameters, callback, res) {
 
 // Callback function for when the Yelp API data is recieved
 function yelpDataReceived(error, response, body, res) {
-	if (!error) {
-		var jsonobj = JSON.parse(body);
-		var businesses = jsonobj.businesses;
+	var jsonobj = JSON.parse(body);
+	var businesses = jsonobj.businesses;
 
+	if (typeof jsonobj.error === 'undefined') {
 		selectRestaurant(businesses, res);
 	}
 	else {
+		console.log(jsonobj.error.text);
 		res.send("NO_DATA");
 	}
 }
@@ -109,6 +110,7 @@ function selectRestaurant(businesses, res) {
 function scrapePrice(businesses, index, callback, res) {
 	var url = businesses[index].url
 	console.log("URL: " + url);
+	console.log("LENGTH: " + businesses.length);
 	request(url, function(error, response, html){
     var $ = cheerio.load(html);
 
@@ -157,7 +159,9 @@ function formatForSend(business, businessPrice) {
 		rating: business.rating,
 		price: businessPrice,
 		address: business.location.display_address,
-		snippet: business.snippet_text
+		snippet: business.snippet_text,
+		rating_image: business.rating_img_url,
+		reviews: business.review_count
 	}
 	return json;
 }

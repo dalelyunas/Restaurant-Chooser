@@ -38,7 +38,6 @@ app.controller("MainController", function($scope, Restaurant) {
         
 			})
       .finally(function() {
-
         $scope.submitted = true;
         $scope.loading = false;
       });

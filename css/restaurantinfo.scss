@@ -56,6 +56,11 @@ restaurant-info, no-info {
   font-family: "Lora", serif;
 }
 
+.snippet-link {
+  color: black;
+  text-decoration: underline;
+}
+
 .info-container {
   margin-top: 1rem;
   max-width: 32rem;
@@ -74,7 +79,19 @@ restaurant-info, no-info {
   border: black .1rem solid;
   margin: .5rem;
   letter-spacing: .15rem;
-  display: inline-block
+  display: inline-block;
+  vertical-align: top;
+}
+
+.rating {
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+}
+
+.review-count {
+  font-size: 1rem;
+  font-family: "Lora", serif;
+  letter-spacing: 0;
 }
 
 .address {
@@ -88,6 +105,10 @@ restaurant-info, no-info {
   display: block;
   margin: 1rem auto;
   width: 10rem;
+}
+
+.yelp-logo {
+  float: right;
 }
 
 @media screen and (max-width: 600px) {
