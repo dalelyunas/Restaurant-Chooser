@@ -2,12 +2,10 @@
 
 html {
   font-size: 62.5%;
-  
 }
 
 body {
   background: black;
- 
 }
 
 a {
@@ -236,20 +234,13 @@ html, body{
   }
 
 
-.cb-slideshow,
-.cb-slideshow:after { 
+.cb-slideshow { 
     position: fixed;
     width: 100%;
     height: 100vh;
     top: 0px;
     left: 0px;
     z-index: 0; 
-}
-
-.cb-slideshow:after { 
-  content: '';
-  height: 100vh;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)); 
 }
 
 .cb-slideshow li span { 
@@ -276,10 +267,10 @@ html, body{
 }
 
 .cb-slideshow li:nth-child(1) span { 
-    background-image: url(../img/bento.jpg) 
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../img/bento.jpg); 
 }
 .cb-slideshow li:nth-child(2) span { 
-    background-image: url(../img/bolognese_meal.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../img/bolognese_meal.jpg);
     -webkit-animation-delay: 6s; 
     -moz-animation-delay: 6s; 
     -o-animation-delay: 6s; 
@@ -287,7 +278,7 @@ html, body{
     animation-delay: 6s; 
 }
 .cb-slideshow li:nth-child(3) span { 
-    background-image: url(../img/cooked_salmon.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../img/cooked_salmon.jpg);
     -webkit-animation-delay: 12s; 
     -moz-animation-delay: 12s; 
     -o-animation-delay: 12s; 
@@ -295,7 +286,7 @@ html, body{
     animation-delay: 12s; 
 }
 .cb-slideshow li:nth-child(4) span { 
-    background-image: url(../img/dessert.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../img/dessert.jpg);
     -webkit-animation-delay: 18s; 
     -moz-animation-delay: 18s; 
     -o-animation-delay: 18s; 
