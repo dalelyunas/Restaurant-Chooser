@@ -13,12 +13,12 @@
 
       <div class="small-info-row">
         <div class="small-info rating">
-          <img src="{{ info.rating_image }}">  
+          <img ng-src="{{ info.rating_image }}">  
           <p class="review-count">based on {{ info.reviews }} reviews</p>
         </div>
         <p class="small-info">Price: {{ info.price}}</p>
       </div>
-      
+
       <p class="address">{{ info.address[0] }}, {{ info.address[1] }} {{ info.address[2] }}</p>
       <a href="{{ info.url }}" class="yelp-link"><button class="button">YELP PAGE</button></a>
 
