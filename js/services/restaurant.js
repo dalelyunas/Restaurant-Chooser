@@ -4,7 +4,7 @@ app.factory('Restaurant', function($q, $timeout, $window, $http) {
     var deferred = $q.defer();
 
     $window.navigator.geolocation.getCurrentPosition(function(position) {
-		$http.get('http://localhost:8080/api/params', {params:{
+		$http.get('http://104.236.193.158:8080/api/params', {params:{
 			loc: position.coords.latitude + "," + position.coords.longitude,
     		radius: requestArray[1] * 1609.34,
     		term: requestArray[0],

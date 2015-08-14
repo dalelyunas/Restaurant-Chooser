@@ -10,9 +10,9 @@ var cheerio = require('cheerio');
 
 // Add headers
 app.use(function (req, res, next) {
-		console.log(req);
+
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'rp.davidalelyunas.me');
+    res.setHeader('Access-Control-Allow-Origin', 'http://rp.davidalelyunas.me');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -22,7 +22,7 @@ app.use(function (req, res, next) {
 
     // Set to true if you need the website to include cookies in the requests sent
     // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader('Access-Control-Allow-Credentials', false);
 
     // Pass to next layer of middleware
     next();
@@ -58,8 +58,8 @@ app.get('/api/params?', function(req, res) {
 	request_yelp(parameters, yelpDataReceived, res);
 });
 
-app.listen(8080, 'localhost');
-console.log('Server running at http://localhost:8080/');
+app.listen(8080, '104.236.193.158');
+console.log('Server running at http://104.236.193.158:8080/');
 
 // Calls the Yelp API with the passed parameters and callback function
 var request_yelp = function(parameters, callback, res) {
