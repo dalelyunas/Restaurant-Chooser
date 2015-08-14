@@ -10,9 +10,9 @@ var cheerio = require('cheerio');
 
 // Add headers
 app.use(function (req, res, next) {
-
+		console.log(req);
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
+    res.setHeader('Access-Control-Allow-Origin', 'rp.davidalelyunas.me');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -58,7 +58,8 @@ app.get('/api/params?', function(req, res) {
 	request_yelp(parameters, yelpDataReceived, res);
 });
 
-app.listen(process.env.PORT || 4730);
+app.listen(8080, 'localhost');
+console.log('Server running at http://localhost:8080/');
 
 // Calls the Yelp API with the passed parameters and callback function
 var request_yelp = function(parameters, callback, res) {
