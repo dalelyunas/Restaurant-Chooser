@@ -1,73 +1,73 @@
 <!doctype html>
 
 <html lang="en">
-<head>
-	<meta charset="utf-8">
+  <head>
+    <meta charset="utf-8">
 
-	<title>Restaurant Picker</title>
-	<meta name="description" content="Restaurant Picker">
-	<meta name="David Alelyunas" content="SitePoint">
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Restaurant Picker</title>
+    <meta name="description" content="Restaurant Picker">
+    <meta name="David Alelyunas" content="SitePoint">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Wire+One|Lora:400,400italic">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Wire+One|Lora:400,400italic">
 
-	<link rel="stylesheet" type="text/css" href="css/main.css">
-	<link rel="stylesheet" type="text/css" href="css/restaurantinfo.css">
-	<link rel="stylesheet" href="font-awesome-4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/restaurantinfo.css">
+    <link rel="stylesheet" href="font-awesome-4.3.0/css/font-awesome.min.css">
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-	<script src="js/app.js"></script>
-	<script src="js/controllers/MainController.js"></script>
-	<script src="js/services/restaurant.js"></script>
-	<script src="js/directives/restaurantInfo.js"></script>
-	<script src="js/directives/noInfo.js"></script>
-</head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers/MainController.js"></script>
+    <script src="js/services/restaurant.js"></script>
+    <script src="js/directives/restaurantInfo.js"></script>
+    <script src="js/directives/noInfo.js"></script>
+  </head>
 
-<body ng-app="App">
-	<ul class="cb-slideshow">
-		<li><span>BG-1</span></li>
-    <li><span>BG-2</span></li>
-    <li><span>BG-3</span></li>
-    <li><span>BG-4</span></li>
-	</ul>
+  <body ng-app="App">
+    <ul class="cb-slideshow">
+      <li><span>BG-1</span></li>
+      <li><span>BG-2</span></li>
+      <li><span>BG-3</span></li>
+      <li><span>BG-4</span></li>
+    </ul>
 
-	<div class="body-container" ng-controller="MainController">
-		<div class="table-container">
-			<div class="searchPage" ng-show="!submitted">
-				<h1 class="title">Restaurant Picker</h1>
-				<h2 class="subtext">Can't decide on a place to eat? This website uses your restaurant preferences to make the decision for you! Answer the question in the search box to begin.</h2>
-				<div class="container">
-					<form name="inputForm" ng-submit="updateQuestion()">
-		    		<input type="search" id="search" ng-model="searchBox" placeholder="{{ questions[curQuestion] }}" required/>
-		    		<input type="submit" class="button" value="{{ button }}"/>
-			    </form>
-		    </div>
-			</div>
-
-			<restaurant-info info="restaurantData" on-back="back()" ng-show="submitted && dataRecieved"></restaurant-info>	
-			<no-info on-back="back()" ng-show="submitted && noDataRecieved"></no-info>
-		
-		</div>
-
-		<footer class="contact">
-			<div class="row-three-col">
-				<div class="three-col">
-					<p>© 2015 David Alelyunas</p>
-				</div>
-
-				<div class="three-col">
-					<p>alelyunas.d@husky.neu.edu</p>
-				</div>
-
-				<div class="three-col">
-					<p><a href="https://github.com/dalelyunas"><i class="fa fa-github fa-2x"></i></a></p>
-				</div>
-			</div>
-		</footer>
-
-		<div class="loading-bar" ng-show="loading"></div>
+    <div class="body-container" ng-controller="MainController">
+      <div class="table-container">
+	<div class="searchPage" ng-show="!submitted">
+	  <h1 class="title">Restaurant Picker</h1>
+	  <h2 class="subtext">Can't decide on a place to eat? This website uses your restaurant preferences to make the decision for you! Answer the question in the search box to begin.</h2>
+	  <div class="container">
+	    <form name="inputForm" ng-submit="updateQuestion()">
+	      <input type="search" id="search" ng-model="searchBox" placeholder="{{ questions[curQuestion] }}" required/>
+	      <input type="submit" class="button" value="{{ button }}"/>
+	    </form>
+	  </div>
 	</div>
-</body>
+
+	<restaurant-info info="restaurantData" on-back="back()" ng-show="submitted && dataRecieved"></restaurant-info>	
+	<no-info on-back="back()" ng-show="submitted && noDataRecieved"></no-info>
+	
+      </div>
+
+      <footer class="contact">
+	<div class="row-three-col">
+	  <div class="three-col">
+	    <p>© 2015 David Alelyunas</p>
+	  </div>
+
+	  <div class="three-col">
+	    <p>alelyunas.d@husky.neu.edu</p>
+	  </div>
+
+	  <div class="three-col">
+	    <p><a href="https://github.com/dalelyunas"><i class="fa fa-github fa-2x"></i></a></p>
+	  </div>
+	</div>
+      </footer>
+
+      <div class="loading-bar" ng-show="loading"></div>
+    </div>
+  </body>
 </html>
